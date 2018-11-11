@@ -236,8 +236,16 @@ public class HttpTools {
     //logger.debug("请求返回结果:{} ", content);
     return content;
   }
-
-  public static String doPostByJson(String url, String jsonParams, String encoding){
+  public static String doPostByJson(String url, String jsonParams,String encoding){
+    return doPostByJson(url, jsonParams, encoding,"application/json");
+  }
+  public static String doPostByJson(String url, String jsonParams){
+    return doPostByJson(url, jsonParams, "UTF-8","application/json");
+  }
+  public static String doPostByParameters(String url, String jsonParams){
+    return doPostByJson(url, jsonParams, "UTF-8","application/x-www-form-urlencoded");
+  }
+  public static String doPostByJson(String url, String jsonParams, String encoding,String contentType){
     try{
 
       int statusCode = 0;
@@ -258,7 +266,7 @@ public class HttpTools {
       HttpPost httpPost = new HttpPost(url);
 
       StringEntity uefEntity = new StringEntity(jsonParams, encoding);
-      uefEntity.setContentType("application/json");
+      uefEntity.setContentType(contentType);
 
       // 设置参数到请求对象中
       httpPost.setEntity(uefEntity);
